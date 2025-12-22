@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Animated River with Jumping Fish</title>
+
+<style>
+    :root {
+        --river-blue: #1e90ff;
+        --river-dark: #176bb5;
+        --fish-color: #ff7a18;
+        --sky: #cceeff;
+    }
+
+    body {
+        margin: 0;
+        background: var(--sky);
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
+    .scene {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+    }
+
+    /* River */
+    .river {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 45vh;
+        background: linear-gradient(
+            90deg,
+            var(--river-blue),
+            var(--river-dark),
+            var(--river-blue)
+        );
+        overflow: hidden;
+    }
+
+    /* Moving water effect */
+    .river::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,0.15) 0px,
+            rgba(255,255,255,0.15) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+        animation: waterFlow 12s linear infinite;
+    }
+
+    @keyframes waterFlow {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+    /* Fish */
+    .fish {
+        position: absolute;
+        bottom: 10%;
+        width: 40px;
+        height: 20px;
+        background: var(--fish-color);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+
+    .fish::after {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 5px;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 10px solid var(--fish-color);
+    }
+
+    @keyframes jump {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-140px) rotate(-20deg);
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive fish scaling */
+    @media (max-width: 600px) {
+        .fish {
+            width: 30px;
+            height: 15px;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="scene">
+    <div class="river" id="river"></div>
+</div>
+
+<script>
+    const river = document.getElementById("river");
+    const fishCount = 6;
+
+    function createFish() {
+        const fish = document.createElement("div");
+        fish.classList.add("fish");
+
+        const leftPos = Math.random() * 90;
+        const delay = Math.random() * 6 + 2;
+        const duration = Math.random() * 2 + 2;
+
+        fish.style.left = leftPos + "%";
+        fish.style.animation = `jump ${duration}s ease-in-out ${delay}s infinite`;
+
+        river.appendChild(fish);
+    }
+
+    for (let i = 0; i < fishCount; i++) {
+        createFish();
+    }
+</script>
+</body>
+</html>
