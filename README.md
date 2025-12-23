@@ -4,7 +4,7 @@ An interactive HTML5 Canvas demo featuring a flowing river and jumping fish.
 Users can click on individual fish and assign them custom names using a modern modal interface.
 
 ## Live Demo
-https://YOUR_USERNAME.github.io/animated-river/
+https://derricktnt.github.io/animated-river/
 
 ## Features
 - Responsive full-screen Canvas rendering
