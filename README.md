@@ -1,3 +1,18 @@
+animated-river/
+├── index.html
+├── css/
+│   ├── style.css
+│   └── modal.css
+├── js/
+│   ├── main.js
+│   ├── fish.js
+│   └── river.js
+├── assets/
+│   └── screenshots/
+└── README.md
+
+
+
 # Animated River – Interactive Canvas Demo
 
 An interactive HTML5 Canvas demo featuring a flowing river and jumping fish.
